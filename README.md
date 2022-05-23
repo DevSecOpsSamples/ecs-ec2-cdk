@@ -71,7 +71,7 @@ Cluster Name: [ecs-ec2-cluster/lib/cluster-config.ts](./ecs-ec2-cluster/lib/clus
 
 [ecs-ec2-cluster/lib/cluster-stack.ts](./ecs-ec2-cluster/lib/cluster-stack.ts)
 
-## Step 4: ECS cluster
+## Step 4: IAM Role
 
 ```bash
 cd ../iam-role
@@ -80,8 +80,16 @@ cdk deploy
 
 [ecs-ec2-cluster/lib/cluster-stack.ts](./ecs-ec2-cluster/lib/cluster-stack.ts)
 
+## Step 5: ECS Service
 
-## Step 4: Deploy Sample RESTFul API
+```bash
+cd ../iam-role
+cdk deploy 
+```
+
+[ecs-restapi-service/lib/ecs-restapi-service-stack.ts](./ecs-restapi-service/lib/ecs-restapi-service-stack.ts)
+
+## Step 6: Deploy Sample RESTFul API
 
 ```bash
 cd app
@@ -96,7 +104,6 @@ docker push <account>.dkr.ecr.<region>.amazonaws.com/sample-rest-api:latest
 
 ```
 
-
 # Uninstall
 
 ```bash
@@ -106,6 +113,3 @@ docker push <account>.dkr.ecr.<region>.amazonaws.com/sample-rest-api:latest
 # Reference
 
 
-# CDK Troubleshooting
-
-TypeError: Class constructor Stack cannot be invoked without 'new' 

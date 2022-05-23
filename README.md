@@ -41,13 +41,12 @@ Use the `-c vpcId` context parameter if you want to use the existing VPC.
 
 ```bash
 cd vpc
-cdk bootstrap
 cdk deploy
 ```
 
 [vpc/lib/vpc-stack.ts](./vpc/lib/vpc-stack.ts)
 
-## Step 2: EC2 Key Pair
+## Step 2: EC2 Key Pair (optional)
 
 https://us-east-1.console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs:
 
@@ -60,7 +59,6 @@ This key pair is required to connect to EC2 with SSH.
 
 ```bash
 cd ../ecs-ec2-cluster
-cdk bootstrap
 cdk deploy 
 
 # or define your VPC id with context parameter
@@ -92,7 +90,7 @@ cdk deploy
 ## Step 6: Deploy Sample RESTFul API
 
 ```bash
-cd app
+cd ../app
 
 docker build -t sample-rest-api .
 
@@ -107,7 +105,17 @@ docker push <account>.dkr.ecr.<region>.amazonaws.com/sample-rest-api:latest
 # Uninstall
 
 ```bash
+cd ../ecs-restapi-service
+cdk destroy
 
+cd ../ecs-ec2-cluster
+cdk deploy
+
+cd ../iam-role
+cdk deploy
+
+cd ../vpc
+cdk deploy
 ```
 
 # Reference

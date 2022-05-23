@@ -27,12 +27,12 @@ export class EcsEc2ClusterStack extends Stack {
         });
         const privateSubnetsSelection = { subnets: vpc.privateSubnets };
 
-        const keyPairName = 'dev-ecs-ec2-cluster'
+        // const keyPairName = 'dev-ecs-ec2-cluster'
         const asg = cluster.addCapacity('ec2-instance', {
             instanceType: new ec2.InstanceType('g4dn.xlarge'),
             minCapacity: 1,
             maxCapacity: 10,
-            keyName: keyPairName,
+            // keyName: keyPairName,
             vpcSubnets: privateSubnetsSelection
         });
 

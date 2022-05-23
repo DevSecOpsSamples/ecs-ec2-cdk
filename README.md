@@ -1,4 +1,4 @@
-# CDK EKS Blueprints Sample
+# CDK ECS EC2 Sample
 
 ## Prequisets
 

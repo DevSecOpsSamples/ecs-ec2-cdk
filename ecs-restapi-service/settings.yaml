@@ -1,0 +1,9 @@
+DEV:
+    TEST:
+        minTaskCount: 1
+        maxTaskCount: 300
+        scalingCpuPercent: 50
+    LIVE:
+        minTaskCount: 1
+        maxTaskCount: 300
+        scalingCpuPercent: 50

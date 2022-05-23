@@ -65,6 +65,10 @@ cdk deploy
 cdk deploy -c vpcId=<vpc-id>
 ```
 
+SSM parameter:
+
+* /cdk-ecs-ec2/vpc-id
+
 Cluster Name: [ecs-ec2-cluster/lib/cluster-config.ts](./ecs-ec2-cluster/lib/cluster-config.ts)
 
 [ecs-ec2-cluster/lib/cluster-stack.ts](./ecs-ec2-cluster/lib/cluster-stack.ts)
@@ -84,6 +88,13 @@ cdk deploy
 cd ../iam-role
 cdk deploy 
 ```
+
+SSM parameters:
+
+* /cdk-ecs-ec2/vpc-id
+* /cdk-ecs-ec2/cluster-securitygroup-id
+* /cdk-ecs-ec2/task-execution-role-arn
+* /cdk-ecs-ec2/default-task-role-arn
 
 [ecs-restapi-service/lib/ecs-restapi-service-stack.ts](./ecs-restapi-service/lib/ecs-restapi-service-stack.ts)
 

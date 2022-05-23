@@ -76,7 +76,7 @@ cd ../iam-role
 cdk deploy 
 ```
 
-[ecs-ec2-cluster/lib/cluster-stack.ts](./ecs-ec2-cluster/lib/cluster-stack.ts)
+[iam-role/lib/ecs-iam-role-stack.ts](./iam-role/lib/ecs-iam-role-stack.ts)
 
 ## Step 5: ECS Service
 
@@ -120,4 +120,44 @@ cdk deploy
 
 # Reference
 
-
+```
+├── build.gradle
+├── package.json
+├── ssm-prefix.ts
+├── tsconfig.json
+├── ecs-ec2-cluster
+│   ├── bin
+│   │   └── index.ts
+│   ├── cdk.json
+│   ├── lib
+│   │   ├── cluster-config.ts
+│   │   └── ec2ecs-cluster-stack.ts
+│   └── settings.yaml
+├── ecs-iam-role
+│   ├── bin
+│   │   └── index.ts
+│   ├── cdk.json
+│   └── lib
+│       └── ecs-iam-role-stack.ts
+├── ecs-restapi-service
+│   ├── bin
+│   │   └── index.ts
+│   ├── cdk.json
+│   ├── lib
+│   │   └── ecs-restapi-service-stack.ts
+└── vpc
+    ├── bin
+    │   └── index.ts
+    ├── cdk.json
+    └── lib
+        └── vpc-stack.ts
+├── app
+│   ├── Dockerfile
+│   ├── README.md
+│   ├── build.sh
+│   ├── cpu-api-template.yaml
+│   ├── cpu-api.yaml
+│   ├── flask_api.py
+│   ├── gunicorn.config.py
+│   └── requirements.txt
+```

@@ -90,6 +90,7 @@ cdk deploy
 SSM parameters:
 
 * /cdk-ecs-ec2/vpc-id
+* /cdk-ecs-ec2/cluster-capacityprovider-name
 * /cdk-ecs-ec2/cluster-securitygroup-id
 * /cdk-ecs-ec2/task-execution-role-arn
 * /cdk-ecs-ec2/default-task-role-arn

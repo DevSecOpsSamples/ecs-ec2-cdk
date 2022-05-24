@@ -22,9 +22,8 @@ Use the `cdk` command-line toolkit to interact with your project:
 | Stack                         | Time    |
 |-------------------------------|---------|
 | VPC                           | 3m      |
-| Key Pair on AWS web console   |         |
-| IAM roles                     | 1m      |
 | ECS EC2 cluster               | 5m      |
+| IAM roles                     | 1m      |
 | ECS Service and ALB           | 3m      |
 
 # Install

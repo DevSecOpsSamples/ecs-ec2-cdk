@@ -43,14 +43,7 @@ cdk deploy
 
 [vpc/lib/vpc-stack.ts](./vpc/lib/vpc-stack.ts)
 
-## Step 2: EC2 Key Pair (optional)
-
-SSM is recommended to connect to EC2 instances with SSH.
-
-If you want to connect to EC2 with SSH, create the Key Pair with `dev-ecs-ec2-cluster` and .ppk file format.
-https://us-east-1.console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs:
-
-## Step 3: ECS cluster
+## Step 2: ECS cluster
 
 ```bash
 cd ../ecs-ec2-cluster
@@ -68,7 +61,12 @@ Cluster Name: [ecs-ec2-cluster/lib/cluster-config.ts](./ecs-ec2-cluster/lib/clus
 
 [ecs-ec2-cluster/lib/cluster-stack.ts](./ecs-ec2-cluster/lib/cluster-stack.ts)
 
-## Step 4: IAM Role
+## Step 3: IAM Role
+
+Create the ECS Task Execution role and default Task Role.
+
+* AmazonECSTaskExecutionRole
+* ECSDefaultTaskRole
 
 ```bash
 cd ../iam-role
@@ -80,7 +78,7 @@ cdk deploy
 ## Step 5: ECS Service
 
 ```bash
-cd ../iam-role
+cd ../ecs-restapi-service
 cdk deploy 
 ```
 
@@ -96,7 +94,7 @@ SSM parameters:
 
 **IMPORTANT**
 
-If the ECS cluster was re-created, you have to deploy after deletion for cdk.context.json files with the below:
+If the ECS cluster was re-created, you HAVE to deploy after cdk.context.json files deletion with the below:
 
 `find . -name "cdk.context.json" -exec rm -f {} \;`
 

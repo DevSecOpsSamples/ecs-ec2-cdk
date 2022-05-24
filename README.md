@@ -34,7 +34,7 @@ The VPC ID will be saved into the SSM Parameter Store to refer from other stacks
 
 Parameter Name : `/cdk-ecs-ec2/vpc-id`
 
-Use the `-c vpcId` context parameter if you want to use the existing VPC.
+Use the `-c vpcId` context parameter to use the existing VPC.
 
 ```bash
 cd vpc

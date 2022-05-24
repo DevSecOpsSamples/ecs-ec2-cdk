@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib';
-
 import { EcsRestAPIServiceStack } from '../lib/ecs-restapi-service-stack';
-
 
 const app = new cdk.App();
 const env = {

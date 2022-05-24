@@ -129,12 +129,17 @@ cdk deploy
 
 # Structure
 
-
-```
+```text
 ├── build.gradle
 ├── package.json
 ├── ssm-prefix.ts
 ├── tsconfig.json
+├── vpc
+│   ├── bin
+│   │   └── index.ts
+│   ├── cdk.json
+│   └── lib
+│       └── vpc-stack.ts
 ├── ecs-ec2-cluster
 │   ├── bin
 │   │   └── index.ts
@@ -155,12 +160,6 @@ cdk deploy
 │   ├── cdk.json
 │   ├── lib
 │   │   └── ecs-restapi-service-stack.ts
-└── vpc
-    ├── bin
-    │   └── index.ts
-    ├── cdk.json
-    └── lib
-        └── vpc-stack.ts
 ├── app
 │   ├── Dockerfile
 │   ├── README.md

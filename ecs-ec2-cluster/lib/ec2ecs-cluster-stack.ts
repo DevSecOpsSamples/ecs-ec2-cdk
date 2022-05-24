@@ -8,13 +8,7 @@ import { Construct } from 'constructs';
 import { CLUSTER_NAME } from '../lib/cluster-config';
 import { INSTANCE_TYPE } from '../lib/cluster-config';
 import { SSM_PREFIX } from '../../ssm-prefix';
-import { classDeclaration } from '@babel/types';
-import { CfnDisk } from 'aws-cdk-lib/aws-lightsail';
 
-
-/**
- * 
- */
 export class EcsEc2ClusterStack extends Stack {
     constructor(scope: Construct, id: string, props?: StackProps) {
         super(scope, id, props);
@@ -29,19 +23,17 @@ export class EcsEc2ClusterStack extends Stack {
         });
         const privateSubnetsSelection = { subnets: vpc.privateSubnets };
 
-        // const keyPairName = 'dev-ecs-ec2-cluster'
         const autoScalingGroup = cluster.addCapacity('ec2-instance', {
             instanceType: new ec2.InstanceType(INSTANCE_TYPE),
             minCapacity: 1,
             maxCapacity: 10,
             cooldown: Duration.seconds(10),
-            // keyName: keyPairName,
+            // keyName: 'dev-ecs-ec2-cluster',
             vpcSubnets: privateSubnetsSelection
         });
         const capacityProvider = new ecs.AsgCapacityProvider(this, 'asg-capacityprovider', {
             capacityProviderName: 'AsgCapacityProvider',
-            autoScalingGroup,
-            // enableManagedTerminationProtection: false
+            autoScalingGroup
         });
         cluster.addAsgCapacityProvider(capacityProvider);
 

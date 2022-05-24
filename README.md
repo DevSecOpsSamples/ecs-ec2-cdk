@@ -7,9 +7,7 @@ npm install -g aws-cdk@2.25.0
 
 # install packages in the root folder
 npm install
-
-export CDK_DEFAULT_ACCOUNT=123456789012
-export CDK_DEFAULT_REGION=us-east-1
+cdk bootstrap
 ```
 
 Use the `cdk` command-line toolkit to interact with your project:
@@ -97,33 +95,26 @@ SSM parameters:
 
 [ecs-restapi-service/lib/ecs-restapi-service-stack.ts](./ecs-restapi-service/lib/ecs-restapi-service-stack.ts)
 
-## Step 6: Deploy Sample RESTFul API
+**IMPORTANT**
+
+If the ECS cluster was re-created, you have to deploy after deletion for cdk.context.json files with the below:
+
+`find . -name "cdk.context.json" -exec rm -f {} \;`
+
+## Step 6: Scaling Test
 
 ```bash
-cd ../app
+aws ecs update-service --cluster cdk-ecs-ec2-local --service restapi --desired-count 5
 
-docker build -t sample-rest-api .
-
-docker tag sample-rest-api:latest <account>.dkr.ecr.<region>.amazonaws.com/sample-rest-api:latest
-
-aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account>.dkr.ecr.<region>.amazonaws.com
-
-docker push <account>.dkr.ecr.<region>.amazonaws.com/sample-rest-api:latest
-
-```
-
-## Step 7: Scaling Test
-
-```bash
-aws ecs update-service --cluster dev-cdk-ecs-ec2 --service restapi --desired-count 8
-
-aws ecs update-service --cluster dev-cdk-ecs-ec2 --service restapi2 --desired-count 12
+aws ecs update-service --cluster cdk-ecs-ec2-local --service restapi2 --desired-count 13
 
 ```
 
 # Uninstall
 
 ```bash
+find . -name "cdk.context.json" -exec rm -f {} \;
+
 cd ecs-restapi-service
 cdk destroy
 
@@ -175,12 +166,11 @@ cdk deploy
 │   ├── Dockerfile
 │   ├── README.md
 │   ├── build.sh
-│   ├── cpu-api-template.yaml
-│   ├── cpu-api.yaml
 │   ├── flask_api.py
 │   ├── gunicorn.config.py
 │   └── requirements.txt
 ```
 
-
 # Reference
+
+TBD

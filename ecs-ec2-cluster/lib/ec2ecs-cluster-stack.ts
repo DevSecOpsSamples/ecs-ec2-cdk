@@ -41,6 +41,7 @@ export class EcsEc2ClusterStack extends Stack {
         const capacityProvider = new ecs.AsgCapacityProvider(this, 'asg-capacityprovider', {
             capacityProviderName: 'AsgCapacityProvider',
             autoScalingGroup,
+            // enableManagedTerminationProtection: false
         });
         cluster.addAsgCapacityProvider(capacityProvider);
 

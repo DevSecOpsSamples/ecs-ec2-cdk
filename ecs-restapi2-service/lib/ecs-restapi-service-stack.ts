@@ -1,10 +1,12 @@
 import * as cdk from 'aws-cdk-lib';
+import * as path from 'path';
 import { Stack, StackProps, CfnOutput, Duration } from 'aws-cdk-lib';
 import * as ecs from 'aws-cdk-lib/aws-ecs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as logs from 'aws-cdk-lib/aws-logs';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
+import { DockerImageAsset } from 'aws-cdk-lib/aws-ecr-assets';
 import { ApplicationLoadBalancer, ApplicationProtocol, SslPolicy, CfnLoadBalancer } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 
 import { CLUSTER_NAME } from '../../ecs-ec2-cluster/lib/cluster-config';
@@ -37,7 +39,6 @@ export class EcsRestAPIServiceStack extends Stack {
         const executionRoleArn = ssm.StringParameter.valueFromLookup(this, `${SSM_PREFIX}/task-execution-role-arn`);
         const taskRoleArn = ssm.StringParameter.valueFromLookup(this, `${SSM_PREFIX}/default-task-role-arn`);
 
-        // Network mode: bridge (default)
         const taskDefinition = new ecs.TaskDefinition(this, 'task-definition', {
             compatibility: ecs.Compatibility.EC2,
             family: `${serviceName}-task`,
@@ -45,9 +46,10 @@ export class EcsRestAPIServiceStack extends Stack {
             taskRole: iam.Role.fromRoleArn(this, 'task-role', cdk.Lazy.string({ produce: () => taskRoleArn }))
         });
         const container = taskDefinition.addContainer('container-restapi', {
-            // image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample"),
             containerName,
-            image: ecs.ContainerImage.fromRegistry("681747700094.dkr.ecr.ap-northeast-2.amazonaws.com/abp-sample-registry:latest"),
+            image: ecs.ContainerImage.fromAsset(path.join(__dirname, "../../", "app")),
+            // or build with app/build.sh
+            // image: ecs.ContainerImage.fromRegistry("<account-id>.dkr.ecr.<region>.amazonaws.com/sample-rest-api:latest"),
             cpu: 1024,
             memoryReservationMiB: 1024
         });

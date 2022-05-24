@@ -29,7 +29,7 @@ export class EcsRestAPIServiceStack extends Stack {
             vpc,
             securityGroups: [ecsSecurityGroup]
         });
-        const serviceName = 'restapi'
+        const serviceName = 'restapi2'
         const containerName = `${serviceName}-container`
         const applicationPort = 8080;
 

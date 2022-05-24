@@ -14,26 +14,26 @@ export CDK_DEFAULT_REGION=us-east-1
 
 Use the `cdk` command-line toolkit to interact with your project:
 
- * `cdk deploy`: deploys your app into an AWS account
- * `cdk synth`: synthesizes an AWS CloudFormation template for your app
- * `cdk diff`: compares your app with the deployed stack
- * `cdk watch`: deployment every time a file change is detected
+* `cdk deploy`: deploys your app into an AWS account
+* `cdk synth`: synthesizes an AWS CloudFormation template for your app
+* `cdk diff`: compares your app with the deployed stack
+* `cdk watch`: deployment every time a file change is detected
 
-## CDK Stack Time Taken
+## CDK Stack
 
 | Stack                         | Time    |
 |-------------------------------|---------|
 | VPC                           | 3m      |
 | Key Pair on AWS web console   |         |
 | IAM roles                     | 1m      |
-| ECS EC2 cluster               | 295.09s   |
-| ECS Service                   |      |
+| ECS EC2 cluster               | 5m      |
+| ECS Service and ALB           | 3m      |
 
 # Install
 
 ## Step 1: VPC
 
-The VPC ID will be saved into the SSM parameter store to refer from other stacks.
+The VPC ID will be saved into the SSM Parameter Store to refer from other stacks.
 
 Parameter Name : `/cdk-ecs-ec2/vpc-id`
 
@@ -48,12 +48,10 @@ cdk deploy
 
 ## Step 2: EC2 Key Pair (optional)
 
+SSM is recommended to connect to EC2 instances with SSH.
+
+If you want to connect to EC2 with SSH, create the Key Pair with `dev-ecs-ec2-cluster` and .ppk file format.
 https://us-east-1.console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs:
-
-Check your region before creating a Key Pair.
-
-Create the Key Pair with `dev-ecs-ec2-cluster` and .ppk file format.
-This key pair is required to connect to EC2 with SSH.
 
 ## Step 3: ECS cluster
 
@@ -113,10 +111,19 @@ docker push <account>.dkr.ecr.<region>.amazonaws.com/sample-rest-api:latest
 
 ```
 
+## Step 7: Scaling Test
+
+```bash
+aws ecs update-service --cluster dev-cdk-ecs-ec2 --service restapi --desired-count 8
+
+aws ecs update-service --cluster dev-cdk-ecs-ec2 --service restapi2 --desired-count 12
+
+```
+
 # Uninstall
 
 ```bash
-cd ../ecs-restapi-service
+cd ecs-restapi-service
 cdk destroy
 
 cd ../ecs-ec2-cluster
@@ -129,7 +136,8 @@ cd ../vpc
 cdk deploy
 ```
 
-# Reference
+# Structure
+
 
 ```
 ├── build.gradle
@@ -172,3 +180,6 @@ cdk deploy
 │   ├── gunicorn.config.py
 │   └── requirements.txt
 ```
+
+
+# Reference

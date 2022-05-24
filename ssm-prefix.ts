@@ -4,6 +4,7 @@
  * /cdk-ecs-ec2/vpc-id
  * 
  * ecs-ec2-cluster:
+ *   /cdk-ecs-ec2/cluster-capacityprovider-name
  *   /cdk-ecs-ec2/cluster-securitygroup-id
  * 
  * iam-role:

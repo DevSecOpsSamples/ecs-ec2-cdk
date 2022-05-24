@@ -9,6 +9,6 @@ COPY . /app/
 
 WORKDIR /app
 
-EXPOSE 8000
+EXPOSE 8080
 
-CMD ["gunicorn", "flask_api:app", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "flask_api:app", "--bind", "0.0.0.0:8080"]

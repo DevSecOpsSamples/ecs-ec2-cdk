@@ -1,6 +1,6 @@
 # CDK ECS EC2 Sample
 
-## Prequisets
+## Prerequisite
 
 ```bash
 npm install -g aws-cdk@2.25.0

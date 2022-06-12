@@ -26,9 +26,9 @@ Use the `cdk` command-line toolkit to interact with your project:
 | IAM roles                     | 1m      |
 | ECS Service and ALB           | 3m      |
 
-# Install
+## Install
 
-## Step 1: VPC
+### Step 1: VPC
 
 The VPC ID will be saved into the SSM Parameter Store to refer from other stacks.
 
@@ -43,7 +43,7 @@ cdk deploy
 
 [vpc/lib/vpc-stack.ts](./vpc/lib/vpc-stack.ts)
 
-## Step 2: ECS cluster
+### Step 2: ECS cluster
 
 ```bash
 cd ../ecs-ec2-cluster
@@ -61,7 +61,7 @@ Cluster Name: [ecs-ec2-cluster/lib/cluster-config.ts](./ecs-ec2-cluster/lib/clus
 
 [ecs-ec2-cluster/lib/cluster-stack.ts](./ecs-ec2-cluster/lib/cluster-stack.ts)
 
-## Step 3: IAM Role
+### Step 3: IAM Role
 
 Create the ECS Task Execution role and default Task Role.
 
@@ -75,7 +75,7 @@ cdk deploy
 
 [iam-role/lib/ecs-iam-role-stack.ts](./iam-role/lib/ecs-iam-role-stack.ts)
 
-## Step 5: ECS Service
+### Step 4: ECS Service
 
 ```bash
 cd ../ecs-restapi-service
@@ -98,7 +98,7 @@ If the ECS cluster was re-created, you HAVE to deploy after cdk.context.json fil
 
 `find . -name "cdk.context.json" -exec rm -f {} \;`
 
-## Step 6: Scaling Test
+### Step 5: Scaling Test
 
 ```bash
 aws ecs update-service --cluster cdk-ecs-ec2-local --service restapi --desired-count 5
@@ -107,7 +107,7 @@ aws ecs update-service --cluster cdk-ecs-ec2-local --service restapi2 --desired-
 
 ```
 
-# Uninstall
+## Uninstall
 
 ```bash
 find . -name "cdk.context.json" -exec rm -f {} \;
@@ -116,16 +116,16 @@ cd ecs-restapi-service
 cdk destroy
 
 cd ../ecs-ec2-cluster
-cdk deploy
+cdk destroy
 
 cd ../iam-role
-cdk deploy
+cdk destroy
 
 cd ../vpc
-cdk deploy
+cdk destroy
 ```
 
-# Structure
+## Structure
 
 ```text
 ├── build.gradle
@@ -167,6 +167,20 @@ cdk deploy
 │   └── requirements.txt
 ```
 
-# Reference
+## Reference
 
-TBD
+### Docs
+
+* [Networking > networkmode > bridge](https://docs.aws.amazon.com/AmazonECS/latest/bestpracticesguide/networking-networkmode-bridge.html)
+
+* [Dynamic Port Mapping](https://aws.amazon.com/premiumsupport/knowledge-center/dynamic-port-mapping-ecs) - The host and awsvpc network modes do not support dynamic host port mapping.
+
+### CDK Lib
+
+* [ECS](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_ecs-readme.html)
+
+* [ECR Assets](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_ecr_assets-readme.html)
+
+* [IAM](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_iam-readme.html)
+
+* [SSM](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_ssm-readme.html)

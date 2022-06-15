@@ -104,7 +104,16 @@ If the ECS cluster was re-created, you HAVE to deploy after cdk.context.json fil
 aws ecs update-service --cluster cdk-ecs-ec2-local --service restapi --desired-count 5
 
 aws ecs update-service --cluster cdk-ecs-ec2-local --service restapi2 --desired-count 13
+```
 
+### Step 6: Run Exec Command
+
+```bash
+aws ecs execute-command --cluster cluster-name \
+    --task task-id \
+    --container container-name \
+    --interactive \
+    --command "/bin/sh"
 ```
 
 ## Uninstall
@@ -184,3 +193,9 @@ cdk destroy
 * [IAM](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_iam-readme.html)
 
 * [SSM](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_ssm-readme.html)
+
+### IAM Role & Policy
+
+* [Task Role](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html)
+
+* [Exec Role](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-exec.html)

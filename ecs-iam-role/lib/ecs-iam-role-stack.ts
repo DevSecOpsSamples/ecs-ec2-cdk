@@ -8,6 +8,11 @@ import { SSM_PREFIX } from '../../ssm-prefix';
 
 /**
  * This stack is written to share IAM role among multiple-cluster
+ * 
+ * https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html
+ * 
+ * https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-exec.html
+ * 
  */
 export class EcsIamRoleStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -34,7 +39,23 @@ export class EcsIamRoleStack extends Stack {
         iam.ManagedPolicy.fromAwsManagedPolicyName(
           'AmazonSSMReadOnlyAccess',
         )
-      ]
+      ],
+      inlinePolicies: {
+        ECSExec: new iam.PolicyDocument({
+          statements: [
+            new iam.PolicyStatement({
+              effect: iam.Effect.ALLOW,
+              actions: [
+                "ssmmessages:CreateControlChannel",
+                "ssmmessages:CreateDataChannel",
+                "ssmmessages:OpenControlChannel",
+                "ssmmessages:OpenDataChannel",
+              ],
+              resources: ["*"],
+            }),
+          ],
+        }),
+      }
     });
 
     const taskExecRoleParam = new ssm.StringParameter(this, 'ssm-task-execution-role', { parameterName: `${SSM_PREFIX}/task-execution-role-arn`, stringValue: taskExecutionRole.roleArn });

@@ -13,12 +13,13 @@ export class EcsEc2ClusterStack extends Stack {
     constructor(scope: Construct, id: string, props?: StackProps) {
         super(scope, id, props);
 
+        const stage = this.node.tryGetContext('stage') || 'local';
         const vpcId = this.node.tryGetContext('vpcId') || ssm.StringParameter.valueFromLookup(this, `${SSM_PREFIX}/vpc-id`);
         const vpc = ec2.Vpc.fromLookup(this, 'vpc', { vpcId });
 
         const cluster = new ecs.Cluster(this, 'cluster', {
             vpc,
-            clusterName: CLUSTER_NAME,
+            clusterName: `${CLUSTER_NAME}-${stage}`,
             containerInsights: true,
         });
         const privateSubnetsSelection = { subnets: vpc.privateSubnets };

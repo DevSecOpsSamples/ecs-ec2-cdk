@@ -1,18 +1,17 @@
+import { Construct } from 'constructs';
 import * as cdk from 'aws-cdk-lib';
-import * as path from 'path';
 import { Stack, StackProps, CfnOutput, Duration } from 'aws-cdk-lib';
+import * as path from 'path';
 import * as ecs from 'aws-cdk-lib/aws-ecs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as logs from 'aws-cdk-lib/aws-logs';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import { DockerImageAsset } from 'aws-cdk-lib/aws-ecr-assets';
-import { ApplicationLoadBalancer, ApplicationProtocol, SslPolicy, CfnLoadBalancer } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
+import { ApplicationLoadBalancer, ApplicationProtocol, SslPolicy } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 
 import { CLUSTER_NAME } from '../../ecs-ec2-cluster/lib/cluster-config';
 import { SSM_PREFIX } from '../../ssm-prefix';
-
-import { Construct } from 'constructs';
 
 /**
  * 
@@ -21,13 +20,14 @@ export class EcsRestAPIServiceStack extends Stack {
     constructor(scope: Construct, id: string, props?: StackProps) {
         super(scope, id, props);
 
+        const stage = this.node.tryGetContext('stage') || 'local';
         const vpcId = this.node.tryGetContext('vpcId') || ssm.StringParameter.valueFromLookup(this, `${SSM_PREFIX}/vpc-id`);
         const vpc = ec2.Vpc.fromLookup(this, 'vpc', { vpcId });
         const clusterSgId = ssm.StringParameter.valueFromLookup(this, `${SSM_PREFIX}/cluster-securitygroup-id`);
         const ecsSecurityGroup = ec2.SecurityGroup.fromSecurityGroupId(this, 'ecs-security-group', clusterSgId);
 
         const cluster = ecs.Cluster.fromClusterAttributes(this, 'ecs-cluster', {
-            clusterName: CLUSTER_NAME,
+            clusterName: `${CLUSTER_NAME}-${stage}`,
             vpc,
             securityGroups: [ecsSecurityGroup]
         });
@@ -59,21 +59,23 @@ export class EcsRestAPIServiceStack extends Stack {
             cluster,
             serviceName,
             taskDefinition,
+            enableExecuteCommand: true,
             capacityProviderStrategies: [{
                 capacityProvider: capacityProviderName,
                 weight: 1
             }]
         });
+
         const scaling = ecsService.autoScaleTaskCount({
             minCapacity: 2,
             maxCapacity: 20,
         });
-        scaling.scaleOnCpuUtilization('CpuScaling', {
+        scaling.scaleOnCpuUtilization('cpuscaling', {
             targetUtilizationPercent: 50,
-            scaleInCooldown: Duration.seconds(60),
             scaleOutCooldown: Duration.seconds(60),
+            scaleInCooldown: Duration.seconds(120)
         });
-        const logGroup = new logs.LogGroup(this, 'logGroup', {
+        const logGroup = new logs.LogGroup(this, 'loggroup', {
             removalPolicy: cdk.RemovalPolicy.DESTROY,
             logGroupName: serviceName,
             retention: logs.RetentionDays.TWO_WEEKS,

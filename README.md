@@ -9,6 +9,7 @@ Table Of Contents
 3. IAM Role
 4. ECS Service
 5. Scaling Test
+6. Execute a command using ECS Exec
 
 ## Prerequisite
 

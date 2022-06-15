@@ -1,5 +1,15 @@
 # CDK ECS EC2 Sample
 
+Sample project for CDK EC2 ECS with Typescript.
+
+Table Of Contents
+
+1. VPC
+2. ECS cluster
+3. IAM Role
+4. ECS Service
+5. Scaling Test
+
 ## Prerequisite
 
 ```bash
@@ -26,7 +36,9 @@ Use the `cdk` command-line toolkit to interact with your project:
 | IAM roles                     | 1m      |
 | ECS Service and ALB           | 3m      |
 
-## Install
+## Deploy
+
+Use the [deploy-all.sh](./deploy-all.sh) file if you want to deploy all stacks without prompt.
 
 ### Step 1: VPC
 
@@ -66,7 +78,7 @@ Cluster Name: [ecs-ec2-cluster/lib/cluster-config.ts](./ecs-ec2-cluster/lib/clus
 Create the ECS Task Execution role and default Task Role.
 
 * AmazonECSTaskExecutionRole
-* ECSDefaultTaskRole
+* ECSDefaultTaskRole including a policy for ECS Exec
 
 ```bash
 cd ../iam-role
@@ -116,23 +128,9 @@ aws ecs execute-command --cluster cluster-name \
     --command "/bin/sh"
 ```
 
-## Uninstall
+## Clean Up
 
-```bash
-find . -name "cdk.context.json" -exec rm -f {} \;
-
-cd ecs-restapi-service
-cdk destroy
-
-cd ../ecs-ec2-cluster
-cdk destroy
-
-cd ../iam-role
-cdk destroy
-
-cd ../vpc
-cdk destroy
-```
+[clean-up.sh](./clean-up.sh)
 
 ## Structure
 

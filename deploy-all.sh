@@ -1,3 +1,4 @@
+echo "Delete cdk.context.json files"
 find . -name "cdk.context.json" -exec rm -f {} \;
 
 echo "Deploy vpc"

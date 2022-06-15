@@ -13,6 +13,6 @@ const stage = app.node.tryGetContext('stage') || 'local';
 
 new EcsEc2ClusterStack(app, `ecs-cluster-${CLUSTER_NAME}-${stage}`, {
     env,
-    description: `ECS ECS cluster, cluster name: ${CLUSTER_NAME}`,
+    description: `ECS EC2 cluster, cluster name: ${CLUSTER_NAME}-${stage}`,
     terminationProtection: stage!='local'
 });

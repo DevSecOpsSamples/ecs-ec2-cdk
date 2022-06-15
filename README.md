@@ -120,10 +120,14 @@ aws ecs update-service --cluster cdk-ecs-ec2-local --service restapi2 --desired-
 
 ### Step 6: Run Exec Command
 
+Install the Session Manager plugin for the AWS CLI
+
+https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html#install-plugin-linux
+
 ```bash
-aws ecs execute-command --cluster cluster-name \
-    --task task-id \
-    --container container-name \
+aws ecs execute-command --cluster cdk-ecs-ec2-local \
+    --task {task-id} \
+    --container restapi-container \
     --interactive \
     --command "/bin/sh"
 ```

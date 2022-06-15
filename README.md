@@ -4,10 +4,10 @@ Sample project for CDK EC2 ECS with Typescript.
 
 Table Of Contents
 
-1. VPC
-2. ECS cluster
-3. IAM Role
-4. ECS Service
+1. Deploy VPC stack
+2. Deploy ECS cluster stack
+3. Deploy IAM Role stack
+4. Deploy ECS Service stack
 5. Scaling Test
 6. Execute a command using ECS Exec
 
@@ -39,7 +39,7 @@ Use the `cdk` command-line toolkit to interact with your project:
 
 ## Steps
 
-Use the [deploy-all.sh](./deploy-all.sh) file if you want to deploy all stacks without prompt.
+Use the [deploy-all.sh](./deploy-all.sh) file if you want to deploy all stacks without prompt at a time.
 
 ### Step 1: VPC
 

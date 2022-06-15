@@ -37,7 +37,7 @@ Use the `cdk` command-line toolkit to interact with your project:
 | IAM roles                     | 1m      |
 | ECS Service and ALB           | 3m      |
 
-## Deploy
+## Steps
 
 Use the [deploy-all.sh](./deploy-all.sh) file if you want to deploy all stacks without prompt.
 

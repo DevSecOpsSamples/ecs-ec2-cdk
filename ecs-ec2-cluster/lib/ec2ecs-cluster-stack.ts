@@ -2,6 +2,7 @@ import { Stack, StackProps, CfnOutput, Token, Fn, Duration } from 'aws-cdk-lib';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as ecs from 'aws-cdk-lib/aws-ecs';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import { CfnLaunchConfiguration } from 'aws-cdk-lib/aws-autoscaling';
 import { Construct } from 'constructs';
 
@@ -32,6 +33,8 @@ export class EcsEc2ClusterStack extends Stack {
             // keyName: 'dev-ecs-ec2-cluster',
             vpcSubnets: privateSubnetsSelection
         });
+        autoScalingGroup.role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore'));
+        
         const capacityProvider = new ecs.AsgCapacityProvider(this, 'asg-capacityprovider', {
             capacityProviderName: 'AsgCapacityProvider',
             autoScalingGroup

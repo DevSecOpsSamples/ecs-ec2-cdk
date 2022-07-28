@@ -1,4 +1,4 @@
-# Sample project for CDK EC2 ECS with Typescript
+# EC2 ECS sample project with CDK
 
 Table Of Contents
 

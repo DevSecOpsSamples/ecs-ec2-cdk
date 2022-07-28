@@ -5,29 +5,29 @@ app = Flask(__name__)
 
 @app.route("/")
 def ping_root():
-    return returnRequests()
+    return return_requests()
 
 @app.route("/<string:path1>")
 def ping_path1(path1):
-    return returnRequests()
+    return return_requests()
 
 @app.route("/<string:path1>/<string:path2>")
 def ping_path2(path1, path2):
-    return returnRequests()
+    return return_requests()
 
 @app.route("/<string:path1>/<string:path2>/<string:path3>")
 def ping_path3(path1, path2, path3):
-    return returnRequests()
+    return return_requests()
 
 @app.route("/<string:path1>/<string:path2>/<string:path3>/<string:path4>")
 def ping_path4(path1, path2, path3, path4):
-    return returnRequests()
+    return return_requests()
  
 @app.route("/<string:path1>/<string:path2>/<string:path3>/<string:path4>/<string:path5>")
 def ping_path5(path1, path2, path3, path4, path5):
-    return returnRequests()
+    return return_requests()
 
-def returnRequests():
+def return_requests():
     return {
         "host": request.host,
         "url": request.url,

@@ -1,4 +1,4 @@
-# Sample project for CDK EC2 ECS with Typescript
+# EC2 ECS sample project with CDK
 
 Table Of Contents
 
@@ -9,10 +9,10 @@ Table Of Contents
 5. Scaling Test
 6. Execute a command using ECS Exec
 
-## Prerequisite
+## Prerequisites
 
 ```bash
-npm install -g aws-cdk@2.25.0
+npm install -g aws-cdk@2.33.0
 
 # install packages in the root folder
 npm install

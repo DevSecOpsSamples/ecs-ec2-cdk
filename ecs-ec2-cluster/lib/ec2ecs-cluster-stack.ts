@@ -6,8 +6,7 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import { CfnLaunchConfiguration } from 'aws-cdk-lib/aws-autoscaling';
 import { Construct } from 'constructs';
 
-import { CLUSTER_NAME } from '../lib/cluster-config';
-import { INSTANCE_TYPE } from '../lib/cluster-config';
+import { CLUSTER_NAME, INSTANCE_TYPE } from '../lib/cluster-config';
 import { SSM_PREFIX } from '../../ssm-prefix';
 
 export class EcsEc2ClusterStack extends Stack {

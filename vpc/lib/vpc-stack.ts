@@ -1,4 +1,4 @@
-import { Stack, StackProps, CfnOutput, Tags } from 'aws-cdk-lib';
+import { Stack, StackProps, CfnOutput } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
 import * as ec2 from 'aws-cdk-lib/aws-ec2';

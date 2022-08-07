@@ -28,19 +28,7 @@ export class VpcStack extends Stack {
                 }
             ]
         });
-
-        const tagAllSubnets = (
-            subnets: ec2.ISubnet[],
-            tagName: string,
-            tagValue: string,
-          ) => {
-            for (const subnet of subnets) {
-              Tags.of(subnet).add(
-                tagName,
-                tagValue
-              );
-            }
-        };
+        
         const parameter = new ssm.StringParameter(this, 'SSMVPCID', { parameterName: `${SSM_PREFIX}/vpc-id`, stringValue: vpc.vpcId });
         new CfnOutput(this, 'VPC', { value: vpc.vpcId });
         new CfnOutput(this, 'SSMParameter', { value: parameter.parameterName });

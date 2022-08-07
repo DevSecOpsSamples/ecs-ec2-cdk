@@ -1,4 +1,4 @@
-import { Stack, StackProps, CfnOutput, Tags } from 'aws-cdk-lib';
+import { Stack, StackProps, CfnOutput } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
@@ -10,10 +10,11 @@ export class VpcStack extends Stack {
     constructor(scope: Construct, id: string, props?: StackProps) {
         super(scope, id, props);
 
+        const cidr = `10.100.0.0/16`;
         const vpc = new ec2.Vpc(this, 'Vpc', {
             maxAzs: 3,
             natGateways: 3,
-            cidr: '10.100.0.0/16',
+            cidr,
             subnetConfiguration: [
                 {
                     cidrMask: 20,
@@ -27,19 +28,7 @@ export class VpcStack extends Stack {
                 }
             ]
         });
-
-        const tagAllSubnets = (
-            subnets: ec2.ISubnet[],
-            tagName: string,
-            tagValue: string,
-          ) => {
-            for (const subnet of subnets) {
-              Tags.of(subnet).add(
-                tagName,
-                tagValue
-              );
-            }
-        };
+        
         const parameter = new ssm.StringParameter(this, 'SSMVPCID', { parameterName: `${SSM_PREFIX}/vpc-id`, stringValue: vpc.vpcId });
         new CfnOutput(this, 'VPC', { value: vpc.vpcId });
         new CfnOutput(this, 'SSMParameter', { value: parameter.parameterName });

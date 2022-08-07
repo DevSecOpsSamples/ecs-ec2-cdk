@@ -1,6 +1,8 @@
 # EC2 ECS sample project with CDK
 
-Table Of Contents
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=engel80_cdk-ecs-ec2&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=engel80_cdk-ecs-ec2) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=engel80_cdk-ecs-ec2&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=engel80_cdk-ecs-ec2)
+
+## Table of Contents
 
 1. Deploy VPC stack
 2. Deploy ECS cluster stack
@@ -28,12 +30,13 @@ Use the `cdk` command-line toolkit to interact with your project:
 
 ## CDK Stack
 
-| Stack                         | Time    |
-|-------------------------------|---------|
-| VPC                           | 3m      |
-| ECS EC2 cluster               | 5m      |
-| IAM roles                     | 1m      |
-| ECS Service and ALB           | 3m      |
+|   | Stack                         | Time    |
+|---|-------------------------------|---------|
+| 1 | VPC                           | 3m      |
+| 2 | ECS EC2 cluster               | 5m      |
+| 3 | IAM roles                     | 1m      |
+| 4 | ECS Service and ALB           | 3m      |
+|   | Total                         | 11m     |
 
 ## Steps
 

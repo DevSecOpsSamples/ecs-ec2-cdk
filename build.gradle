@@ -4,8 +4,8 @@ plugins {
 
 sonarqube {
     properties {
-        property "sonar.projectName", "cdk-ecs-ec2"
-        property "sonar.projectKey", "DevSecOpsSamples_cdk-ecs-ec2"
+        property "sonar.projectName", "ecs-ec2-cdk"
+        property "sonar.projectKey", "DevSecOpsSamples_ecs-ec2-cdk"
         property "sonar.organization", "devsecopssamples"
         // property "sonar.host.url", "http://127.0.0.1:9000"
         property "sonar.host.url", "https://sonarcloud.io"
@@ -15,6 +15,6 @@ sonarqube {
         property "sonar.issue.ignore.multicriteria", "e1"
         property "sonar.issue.ignore.multicriteria.e1.ruleKey", "typescript:S1848"
         property "sonar.issue.ignore.multicriteria.e1.resourceKey", "**/*.ts"
-        property "sonar.links.ci", "https://github.com/DevSecOpsSamples/cdk-ecs-ec2/actions"
+        property "sonar.links.ci", "https://github.com/DevSecOpsSamples/ecs-ec2-cdk/actions"
     }
 }

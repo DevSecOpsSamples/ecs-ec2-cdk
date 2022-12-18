@@ -1,6 +1,7 @@
-# EC2 ECS sample project with CDK
+# EC2 ECS with CDK
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=engel80_cdk-ecs-ec2&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=engel80_cdk-ecs-ec2) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=engel80_cdk-ecs-ec2&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=engel80_cdk-ecs-ec2)
+[![Build](https://github.com/DevSecOpsSamples/cdk-ecs-ec2/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/DevSecOpsSamples/cdk-ecs-ec2/actions/workflows/build.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DevSecOpsSamples_cdk-ecs-ec2&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=DevSecOpsSamples_cdk-ecs-ec2) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=DevSecOpsSamples_cdk-ecs-ec2&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=DevSecOpsSamples_cdk-ecs-ec2)
 
 ## Table of Contents
 

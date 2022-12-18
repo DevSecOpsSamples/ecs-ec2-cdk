@@ -1,7 +1,7 @@
 # EC2 ECS with CDK
 
-[![Build](https://github.com/DevSecOpsSamples/cdk-ecs-ec2/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/DevSecOpsSamples/cdk-ecs-ec2/actions/workflows/build.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DevSecOpsSamples_cdk-ecs-ec2&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=DevSecOpsSamples_cdk-ecs-ec2) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=DevSecOpsSamples_cdk-ecs-ec2&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=DevSecOpsSamples_cdk-ecs-ec2)
+[![Build](https://github.com/DevSecOpsSamples/ecs-ec2-cdk/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/DevSecOpsSamples/ecs-ec2-cdk/actions/workflows/build.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DevSecOpsSamples_ecs-ec2-cdk&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=DevSecOpsSamples_ecs-ec2-cdk) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=DevSecOpsSamples_ecs-ec2-cdk&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=DevSecOpsSamples_ecs-ec2-cdk)
 
 ## Table of Contents
 
@@ -47,7 +47,7 @@ Use the [deploy-all.sh](./deploy-all.sh) file if you want to deploy all stacks w
 
 The VPC ID will be saved into the SSM Parameter Store to refer from other stacks.
 
-Parameter Name : `/cdk-ecs-ec2/vpc-id`
+Parameter Name : `/ecs-ec2-cdk/vpc-id`
 
 Use the `-c vpcId` context parameter to use the existing VPC.
 
@@ -70,7 +70,7 @@ cdk deploy -c vpcId=<vpc-id>
 
 SSM parameter:
 
-* /cdk-ecs-ec2/vpc-id
+* /ecs-ec2-cdk/vpc-id
 
 Cluster Name: [ecs-ec2-cluster/lib/cluster-config.ts](./ecs-ec2-cluster/lib/cluster-config.ts)
 
@@ -99,11 +99,11 @@ cdk deploy
 
 SSM parameters:
 
-* /cdk-ecs-ec2/vpc-id
-* /cdk-ecs-ec2/cluster-capacityprovider-name
-* /cdk-ecs-ec2/cluster-securitygroup-id
-* /cdk-ecs-ec2/task-execution-role-arn
-* /cdk-ecs-ec2/default-task-role-arn
+* /ecs-ec2-cdk/vpc-id
+* /ecs-ec2-cdk/cluster-capacityprovider-name
+* /ecs-ec2-cdk/cluster-securitygroup-id
+* /ecs-ec2-cdk/task-execution-role-arn
+* /ecs-ec2-cdk/default-task-role-arn
 
 [ecs-restapi-service/lib/ecs-restapi-service-stack.ts](./ecs-restapi-service/lib/ecs-restapi-service-stack.ts)
 
@@ -116,9 +116,9 @@ If the ECS cluster was re-created, you HAVE to deploy after cdk.context.json fil
 ### Step 5: Scaling Test
 
 ```bash
-aws ecs update-service --cluster cdk-ecs-ec2-local --service restapi --desired-count 5
+aws ecs update-service --cluster ecs-ec2-cdk-local --service restapi --desired-count 5
 
-aws ecs update-service --cluster cdk-ecs-ec2-local --service restapi2 --desired-count 13
+aws ecs update-service --cluster ecs-ec2-cdk-local --service restapi2 --desired-count 13
 ```
 
 ### Step 6: Execute a command using ECS Exec
@@ -128,22 +128,22 @@ Install the Session Manager plugin for the AWS CLI:
 https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html#install-plugin-linux
 
 ```bash
-aws ecs list-tasks --cluster cdk-ecs-ec2-local --service-name restapi
+aws ecs list-tasks --cluster ecs-ec2-cdk-local --service-name restapi
 ```
 
 ```json
 {
     "taskArns": [
-        "arn:aws:ecs:us-east-1:123456789:task/cdk-ecs-ec2-local/0a244ff8b8654b3abaaed0880b2b78f1",
-        "arn:aws:ecs:us-east-1:123456789:task/cdk-ecs-ec2-local/ac3d5a4e7273460a80aa18264e4a8f5e"
+        "arn:aws:ecs:us-east-1:123456789:task/ecs-ec2-cdk-local/0a244ff8b8654b3abaaed0880b2b78f1",
+        "arn:aws:ecs:us-east-1:123456789:task/ecs-ec2-cdk-local/ac3d5a4e7273460a80aa18264e4a8f5e"
     ]
 }
 ```
 
 ```bash
-TASK_ID=$(aws ecs list-tasks --cluster cdk-ecs-ec2-local --service-name restapi | jq '.taskArns[0]' | cut -d '/' -f3 | cut -d '"' -f1)
+TASK_ID=$(aws ecs list-tasks --cluster ecs-ec2-cdk-local --service-name restapi | jq '.taskArns[0]' | cut -d '/' -f3 | cut -d '"' -f1)
 
-aws ecs execute-command --cluster cdk-ecs-ec2-local --task $TASK_ID --container restapi-container  --interactive --command "/bin/sh"
+aws ecs execute-command --cluster ecs-ec2-cdk-local --task $TASK_ID --container restapi-container  --interactive --command "/bin/sh"
 ```
 
 ```bash

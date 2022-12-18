@@ -7,8 +7,13 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
-  build:
-    name: Build
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: cd app && docker build . -t sample-rest-api:$(date +%s)
+  sonarqube:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

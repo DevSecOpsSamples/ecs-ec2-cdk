@@ -6,7 +6,7 @@ sonarqube {
     properties {
         property "sonar.projectName", "cdk-ecs-ec2"
         property "sonar.projectKey", "DevSecOpsSamples_cdk-ecs-ec2"
-        property "sonar.organization", "Devsecopssamples"
+        property "sonar.organization", "devsecopssamples"
         // property "sonar.host.url", "http://127.0.0.1:9000"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.sourceEncoding", "UTF-8"

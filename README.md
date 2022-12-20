@@ -15,7 +15,7 @@
 ## Prerequisites
 
 ```bash
-npm install -g aws-cdk@2.33.0
+npm install -g aws-cdk@2.55.1
 
 # install packages in the root folder
 npm install

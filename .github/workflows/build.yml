@@ -7,16 +7,28 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
-  docker-build:
+  build-cdk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Build CDK
+        run: npm install && npm run build
+
+  build-docker:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: cd app && docker build . -t sample-rest-api:$(date +%s)
+
   sonarqube:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Set up JDK 11

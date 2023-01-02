@@ -1,4 +1,5 @@
 plugins {
+	id 'base'
     id "org.sonarqube" version "3.5.0.2730"
 }
 
@@ -21,6 +22,8 @@ sonarqube {
 
 clean.doFirst {
     delete "${rootDir}/.pytest_cache"
+    delete "${rootDir}/node_modules"
+    delete "${rootDir}/ts.out"
     delete fileTree(dir: './' , include: '**/.coverage')
     delete fileTree(dir: 'app' , include: '**/*.pyc')
     delete fileTree(dir: 'app' , include: '**/__pycache__')

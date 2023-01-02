@@ -1,5 +1,10 @@
 plugins {
+	id 'base'
     id "org.sonarqube" version "3.5.0.2730"
+}
+
+task test(type:Exec) {
+    commandLine 'pytest'
 }
 
 sonarqube {
@@ -12,9 +17,20 @@ sonarqube {
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.sources", "."
         property "sonar.exclusions", "**/node_modules/**, **/cdk.out/**"
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/test-result.xml"
+        property "sonar.python.coverage.reportPaths", "build/test-coverage.xml"
         property "sonar.issue.ignore.multicriteria", "e1"
         property "sonar.issue.ignore.multicriteria.e1.ruleKey", "typescript:S1848"
         property "sonar.issue.ignore.multicriteria.e1.resourceKey", "**/*.ts"
         property "sonar.links.ci", "https://github.com/DevSecOpsSamples/ecs-ec2-cdk/actions"
     }
+}
+
+clean.doFirst {
+    delete "${rootDir}/.pytest_cache"
+    delete "${rootDir}/node_modules"
+    delete "${rootDir}/ts.out"
+    delete fileTree(dir: './' , include: '**/.coverage')
+    delete fileTree(dir: 'app' , include: '**/*.pyc')
+    delete fileTree(dir: 'app' , include: '**/__pycache__')
 }

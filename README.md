@@ -165,9 +165,9 @@ Load average: 0.00 0.02 0.00 4/301 75
 /app # exit
 ```
 
-## Clean Up
+## Cleanup
 
-[clean-up.sh](./clean-up.sh)
+[cleanup.sh](./cleanup.sh)
 
 ## Structure
 

@@ -18,3 +18,10 @@ sonarqube {
         property "sonar.links.ci", "https://github.com/DevSecOpsSamples/ecs-ec2-cdk/actions"
     }
 }
+
+clean.doFirst {
+    delete "${rootDir}/.pytest_cache"
+    delete fileTree(dir: './' , include: '**/.coverage')
+    delete fileTree(dir: 'app' , include: '**/*.pyc')
+    delete fileTree(dir: 'app' , include: '**/__pycache__')
+}

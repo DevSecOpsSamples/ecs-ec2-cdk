@@ -1,0 +1,10 @@
+pytest==7.2.0
+pytest-env==0.8.1
+pytest-cov==4.0.0
+pytest-runner==6.0.0
+pytest-html==3.2.0
+virtualenv==20.17.1
+Flask==2.1.1
+Flask-WTF==1.0.1
+gunicorn==20.1.0
+flake8==6.0.0

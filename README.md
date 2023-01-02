@@ -15,7 +15,7 @@
 ## Prerequisites
 
 ```bash
-npm install -g aws-cdk@2.33.0
+npm install -g aws-cdk@2.55.1
 
 # install packages in the root folder
 npm install
@@ -165,9 +165,9 @@ Load average: 0.00 0.02 0.00 4/301 75
 /app # exit
 ```
 
-## Clean Up
+## Cleanup
 
-[clean-up.sh](./clean-up.sh)
+[cleanup.sh](./cleanup.sh)
 
 ## Structure
 
